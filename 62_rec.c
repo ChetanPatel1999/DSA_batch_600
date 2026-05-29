@@ -6,10 +6,9 @@ void fun(int num)
     {
         fun(num - 1);
     }
-    printf("%d ", num);
+    printf("%d\n", num*num);
 }
 void main()
 {
     fun(10);
-    fun(20);
 }
