@@ -5,9 +5,9 @@ void main()
     int *ptr;
     ptr = arr; // &arr[0]
 
-    printf("%d ", *ptr);
+    printf("%d ", *ptr); // 12
     ptr++;
-    printf("%d ", *ptr);
+    printf("%d ", *ptr); // 34
     ptr++;
     printf("%d ", *ptr);
     ptr++;
