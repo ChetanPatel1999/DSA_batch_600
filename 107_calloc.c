@@ -5,7 +5,7 @@ void main()
     int n;
     printf("enter array size : ");
     scanf("%d", &n); // 5
-    int *ptr = (int *)malloc(n * sizeof(int));
+    int *ptr = (int *)calloc(n, sizeof(int));
     int *temp = ptr;
     int i;
     if (ptr == NULL)

@@ -1,1 +1,2 @@
- name[i
+
+        ptr = temp;
