@@ -25,7 +25,6 @@ void main()
         printf("%d ", ptr1);
         ptr1++;
     }
-
     ptr1 = temp;
     free(ptr1);
 }
