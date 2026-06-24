@@ -179,13 +179,106 @@ void insert_at_index()
             }
             else
             {
-                // insert at middle
+                struct node *new = (struct node *)malloc(sizeof(struct node));
+                int num;
+                printf("enter a num : ");
+                scanf("%d", &num);
+                new->data = num;
+                new->next = NULL;
+                // index = 2
+                struct node *prev, *temp;
+                int i = 0;
+                temp = head;
+                while (i < index)
+                {
+                    i++;
+                    prev = temp;
+                    temp = temp->next;
+                }
+                prev->next = new;
+                new->next = temp;
             }
         }
     }
     else
     {
         printf("\nfirst create list then insert\n");
+    }
+}
+void delete_at_index()
+{
+    if (head != NULL)
+    {
+        int index;
+        printf("enter index : ");
+        scanf("%d", &index); // 0
+        if (index == 0)
+        {
+            delete_at_frist();
+        }
+        else
+        {
+            struct node *temp = head;
+            int c = 0;
+            while (temp != NULL)
+            {
+                c++;
+                temp = temp->next;
+            }
+
+            if (index == c - 1)
+            {
+                delete_at_last();
+            }
+            else if (index > c - 1 || index < 0)
+            {
+                printf("\ninvalid index\n");
+            }
+            else
+            {
+                struct node *prev, *temp;
+                int i = 0;
+                temp = head;
+                while (i < index)
+                {
+                    i++;
+                    prev = temp;
+                    temp = temp->next;
+                }
+                prev->next = temp->next;
+                printf("\n%d is deleted from list\n", temp->data);
+                free(temp);
+            }
+        }
+    }
+    else
+    {
+        printf("\nfirst create list then delete\n");
+    }
+}
+void search_element()
+{
+    if (head != NULL)
+    {
+        int num;
+        printf("enter a num : ");
+        scanf("%d", &num); // 60
+        struct node *temp = head;
+        while (temp != NULL)
+        {
+            if (temp->data == num)
+            {
+                printf("\nelement is found\n");
+                return;
+            }
+            temp = temp->next;
+        }
+        printf("\nelement is not found\n");
+    }
+    else
+    {
+
+        printf("\nfirst create list then search\n");
     }
 }
 void main()
@@ -230,10 +323,10 @@ void main()
             insert_at_index();
             break;
         case 8:
-            // delete_at_index();
+            delete_at_index();
             break;
         case 9:
-            // search_element();
+            search_element();
             break;
         case 10:
             exit(0); // Exit the program
