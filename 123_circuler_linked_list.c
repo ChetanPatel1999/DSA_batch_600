@@ -110,15 +110,33 @@ void insert_at_frist()
         printf("\nfirst create list then insert\n");
     }
 }
+
 void delete_at_frist()
 {
     if (head != NULL)
     {
-        struct node *temp;
-        temp = head;
-        head = head->next;
-        printf("\n%d element is deleted\n", temp->data);
-        free(temp);
+
+        if (head->next == head)
+        {
+            struct node *temp = head;
+            head = NULL;
+            printf("\n%d element is deleted\n", temp->data);
+            free(temp);
+        }
+        else
+        {
+            struct node *temp, *prev;
+            temp = head;
+            prev = head;
+            while (prev->next != head)
+            {
+                prev = prev->next;
+            }
+            head = head->next;
+            prev->next = head;
+            printf("\n%d element is deleted\n", temp->data);
+            free(temp);
+        }
     }
     else
     {
@@ -136,12 +154,14 @@ void insert_at_last()
         scanf("%d", &num);
         new->data = num;
         new->next = NULL;
+
         struct node *temp = head;
-        while (temp->next != NULL)
+        while (temp->next != head)
         {
             temp = temp->next;
         }
         temp->next = new;
+        new->next = head;
     }
     else
     {
@@ -153,7 +173,7 @@ void delete_at_last()
 
     if (head != NULL)
     {
-        if (head->next == NULL)
+        if (head->next == head)
         {
             struct node *temp = head;
             printf("\n%d is deleted from list\n", temp->data);
@@ -163,12 +183,12 @@ void delete_at_last()
         else
         {
             struct node *temp = head, *prev;
-            while (temp->next != NULL)
+            while (temp->next != head)
             {
                 prev = temp;
                 temp = temp->next;
             }
-            prev->next = NULL;
+            prev->next = head;
             printf("\n%d is deleted from list\n", temp->data);
             free(temp);
         }
@@ -192,8 +212,8 @@ void insert_at_index()
         else
         {
             struct node *temp = head;
-            int c = 0;
-            while (temp != NULL)
+            int c = 1;
+            while (temp->next != head)
             {
                 c++;
                 temp = temp->next;
@@ -248,8 +268,8 @@ void delete_at_index()
         else
         {
             struct node *temp = head;
-            int c = 0;
-            while (temp != NULL)
+            int c = 1;
+            while (temp->next != head)
             {
                 c++;
                 temp = temp->next;
@@ -293,7 +313,7 @@ void search_element()
         printf("enter a num : ");
         scanf("%d", &num); // 60
         struct node *temp = head;
-        while (temp != NULL)
+        do
         {
             if (temp->data == num)
             {
@@ -301,7 +321,7 @@ void search_element()
                 return;
             }
             temp = temp->next;
-        }
+        } while (temp != head);
         printf("\nelement is not found\n");
     }
     else
