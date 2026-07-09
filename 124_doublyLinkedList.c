@@ -237,6 +237,139 @@ void insert_at_index()
         printf("\nfirst create doubly linked list then insert\n");
     }
 }
+
+void delete_at_index()
+{
+    if (head != NULL)
+    {
+        int index;
+        printf("enter a index : ");
+        scanf("%d", &index);
+        if (index == 0)
+        {
+            delete_at_frist();
+        }
+        else
+        {
+            struct node *temp = head;
+            int c = 0;
+            while (temp != NULL)
+            {
+                temp = temp->next;
+                c++;
+            }
+
+            if (c - 1 == index)
+            {
+                delete_at_last();
+            }
+            else if (index < 0 || index > c - 1)
+            {
+                printf("\ninvalid index number");
+            }
+            else
+            {
+                temp = head;
+                int i = 0;
+                while (i < index)
+                {
+                    temp = temp->next;
+                    i++;
+                }
+                temp->prev->next = temp->next;
+                temp->next->prev = temp->prev;
+                printf("\n%d element is deleted \n", temp->data);
+                free(temp);
+            }
+        }
+    }
+    else
+    {
+        printf("\nfirst create doubly linked list then deleted\n");
+    }
+}
+
+void search_element()
+{
+    if (head != NULL)
+    {
+        int num;
+        printf("enter a num for search : ");
+        scanf("%d", &num);
+        struct node *temp = head;
+        while (temp != NULL)
+        {
+            if (temp->data == num)
+            {
+                printf("\nfound element\n");
+                return;
+            }
+            temp = temp->next;
+        }
+        printf("\nelement is not found\n");
+    }
+    else
+    {
+        printf("\nfirst create doubly linked list then search\n");
+    }
+}
+void delete_element()
+{
+    if (head != NULL)
+    {
+        int num, f = 0;
+        printf("enter a num for delete : ");
+        scanf("%d", &num);
+        struct node *temp = head;
+        if (temp->data == num)
+        {
+            f = 1;
+            delete_at_frist();
+        }
+        else
+        {
+            struct node *temp = head;
+            while (temp->next != NULL)
+            {
+                temp = temp->next;
+            }
+
+            if (temp->data == num)
+            {
+                f = 1;
+                delete_at_last();
+            }
+            else
+            {
+                temp = head;
+
+                while (temp != NULL)
+                {
+                    if (temp->data == num)
+                    {
+                        f = 1;
+                        temp->prev->next = temp->next;
+                        temp->next->prev = temp->prev;
+                        printf("\n%d element is deleted \n", temp->data);
+                        free(temp);
+                        return;
+                    }
+
+                    temp = temp->next;
+                }
+            }
+        }
+
+        if (f == 0)
+        {
+            printf("\nelement is not found\n");
+        }
+    }
+    else
+    {
+        printf("\nfirst create doubly linked list then delete\n");
+    }
+}
 void main()
 {
     int num;
@@ -252,7 +385,7 @@ void main()
         printf("Press 7 to insert element at index\n");
         printf("Press 8 to delete element at index\n");
         printf("Press 9 to search element in list\n");
-        printf("Press 10 to reverse display\n");
+        printf("Press 10 to delete element\n");
         printf("Press 11 to exit\n");
         printf("choose option : ");
         scanf("%d", &num);
@@ -279,12 +412,15 @@ void main()
         case 7:
             insert_at_index();
             break;
-        // case 8:
-        //     delete_at_index();
-        //     break;
-        // case 9:
-        //     search_element();
-        //     break;
+        case 8:
+            delete_at_index();
+            break;
+        case 9:
+            search_element();
+            break;
+        case 10:
+            delete_element();
+            break;
         case 11:
             exit(0);
             break;
