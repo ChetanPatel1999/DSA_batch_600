@@ -7,7 +7,6 @@ struct stack
     int *arr;
 };
 
-
 int isEmpty(struct stack *s1)
 {
     if (s1->top == -1)
