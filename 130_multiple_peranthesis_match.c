@@ -46,22 +46,43 @@ char pop()
         return num;
     }
 }
-int perenthesisMatch(char exp[])
+int match(char a, char b)
+{
+    if (a == ')' && b == '(')
+    {
+        return 1;
+    }
+    if (a == ']' && b == '[')
+    {
+        return 1;
+    }
+    if (a == '}' && b == '{')
+    {
+        return 1;
+    }
+    return 0;
+}
+
+int perenthesisMatch(char exp[]) //"[{(46+6)}]";
 {
     int i;
     for (i = 0; exp[i] != '\0'; i++)
     {
-        if (exp[i] == '(')
+        if (exp[i] == '(' || exp[i] == '[' || exp[i] == '{')
         {
             push(exp[i]);
         }
-        if (exp[i] == ')')
+        if (exp[i] == ')' || exp[i] == ']' || exp[i] == '}')
         {
             if (isEmpty())
             {
                 return 0;
             }
-            pop();
+            char item = pop();        //
+            if (!match(exp[i], item)) //
+            {
+                return 0;
+            }
         }
     }
 
@@ -76,7 +97,7 @@ int perenthesisMatch(char exp[])
 }
 void main()
 {
-    char exp[] = "(12+5)+(4*6)";
+    char exp[] = "[{(4+6)]}";
     printf("expression : %s\n", exp);
     if (perenthesisMatch(exp))
     {
