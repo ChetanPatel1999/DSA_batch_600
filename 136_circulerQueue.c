@@ -10,7 +10,7 @@ struct queue
 
 int isEmpty(struct queue *q1)
 {
-    if (q1->front == -1 && q1->rear == -1 || q1->front > q1->rear)
+    if (q1->rear == -1)
     {
         return 1;
     }
@@ -19,7 +19,7 @@ int isEmpty(struct queue *q1)
 
 int isFull(struct queue *q1)
 {
-    if (q1->rear == q1->size - 1)
+    if ((q1->rear + 1) % q1->size == q1->front)
     {
         return 1;
     }
@@ -41,7 +41,7 @@ void enqueue(struct queue *q1, int num)
         }
         else
         {
-            q1->rear++;
+            q1->rear = (q1->rear + 1) % q1->size;
             q1->arr[q1->rear] = num;
         }
     }
@@ -74,7 +74,15 @@ int dequeue(struct queue *q1)
     else
     {
         int num = q1->arr[q1->front];
-        q1->front++;
+        if (q1->front == q1->rear)
+        {
+            q1->front = q1->rear = -1;
+        }
+        else
+        {
+            q1->front = (q1->front + 1) % q1->size;
+        }
+
         return num;
     }
 }
@@ -99,13 +107,25 @@ void main()
     q1->rear = -1;
     q1->arr = (int *)malloc(q1->size * sizeof(int));
 
-    enqueue(q1, 78);
-    enqueue(q1, 67);
-    enqueue(q1, 37);
-    enqueue(q1, 8);
-    display(q1);
-    printf("%d element is dequeue\n", dequeue(q1));
-    printf("%d element is dequeue\n", dequeue(q1));
-    display(q1);
-    printf("%d element is peek\n", peek(q1));
+    enqueue(q1, 45);
+    enqueue(q1, 35);
+    enqueue(q1, 15);
+    enqueue(q1, 95);
+    enqueue(q1, 35);
+    printf("%d element is dequeue \n",dequeue(q1));
+    printf("%d element is dequeue \n",dequeue(q1));
+    printf("%d element is dequeue \n",dequeue(q1));
+    enqueue(q1, 100);
+    enqueue(q1, 200);
+    enqueue(q1, 300);
+    printf("%d element is dequeue \n",dequeue(q1));
+    printf("%d element is dequeue \n",dequeue(q1));
+    printf("%d element is dequeue \n",dequeue(q1));
+    printf("%d element is dequeue \n",dequeue(q1));
+    printf("%d element is dequeue \n",dequeue(q1));
+    printf("%d element is dequeue \n",dequeue(q1));
+    printf("%d element is dequeue \n",dequeue(q1));
+    enqueue(q1, 400);
+    enqueue(q1, 500);
+    enqueue(q1, 600);
 }
