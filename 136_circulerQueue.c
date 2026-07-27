@@ -46,23 +46,6 @@ void enqueue(struct queue *q1, int num)
         }
     }
 }
-void display(struct queue *q1)
-{
-    if (isEmpty(q1))
-    {
-        printf("\nqueue is underflow , we cant display\n\n");
-    }
-    else
-    {
-        printf("queue element are : ");
-        int i;
-        for (i = q1->front; i <= q1->rear; i++)
-        {
-            printf("%d ", q1->arr[i]);
-        }
-        printf("\n");
-    }
-}
 
 int dequeue(struct queue *q1)
 {
@@ -99,6 +82,25 @@ int peek(struct queue *q1)
         return q1->arr[q1->front];
     }
 }
+
+void display(struct queue *q1)
+{
+    if (isEmpty(q1))
+    {
+        printf("\nqueue is underflow we cant display\n");
+    }
+    else
+    {
+        printf("circuler queue element are : ");
+        int i = q1->front;
+        while (i != q1->rear) // 1
+        {
+            printf("%d ", q1->arr[i]);
+            i = (i + 1) % q1->size;
+        }
+        printf("%d\n", q1->arr[i]);
+    }
+}
 void main()
 {
     struct queue *q1 = (struct queue *)malloc(sizeof(struct queue));
@@ -112,19 +114,21 @@ void main()
     enqueue(q1, 15);
     enqueue(q1, 95);
     enqueue(q1, 35);
-    printf("%d element is dequeue \n",dequeue(q1));
-    printf("%d element is dequeue \n",dequeue(q1));
-    printf("%d element is dequeue \n",dequeue(q1));
+    display(q1);
+    printf("%d element is dequeue \n", dequeue(q1));
+    printf("%d element is dequeue \n", dequeue(q1));
+    printf("%d element is dequeue \n", dequeue(q1));
     enqueue(q1, 100);
     enqueue(q1, 200);
     enqueue(q1, 300);
-    printf("%d element is dequeue \n",dequeue(q1));
-    printf("%d element is dequeue \n",dequeue(q1));
-    printf("%d element is dequeue \n",dequeue(q1));
-    printf("%d element is dequeue \n",dequeue(q1));
-    printf("%d element is dequeue \n",dequeue(q1));
-    printf("%d element is dequeue \n",dequeue(q1));
-    printf("%d element is dequeue \n",dequeue(q1));
+    display(q1);
+    printf("%d element is dequeue \n", dequeue(q1));
+    printf("%d element is dequeue \n", dequeue(q1));
+    printf("%d element is dequeue \n", dequeue(q1));
+    printf("%d element is dequeue \n", dequeue(q1));
+    printf("%d element is dequeue \n", dequeue(q1));
+    printf("%d element is dequeue \n", dequeue(q1));
+    printf("%d element is dequeue \n", dequeue(q1));
     enqueue(q1, 400);
     enqueue(q1, 500);
     enqueue(q1, 600);
