@@ -16,6 +16,35 @@ struct node *createNode(int num)
     return new;
 }
 
+void inorder(struct node *root)
+{
+    if (root != NULL)
+    {
+        inorder(root->left);
+        printf("%d ", root->data);
+        inorder(root->right);
+    }
+}
+
+void preorder(struct node *root)
+{
+    if (root != NULL)
+    {
+        printf("%d ", root->data);
+        preorder(root->left);
+        preorder(root->right);
+    }
+}
+
+void postorder(struct node *root)
+{
+    if (root != NULL)
+    {
+        postorder(root->left);
+        postorder(root->right);
+        printf("%d ", root->data);
+    }
+}
 void main()
 {
     struct node *root, *l1, *r1, *l1l2, *l1r2, *r1l2, *r1r2;
@@ -33,4 +62,12 @@ void main()
     l1->right = l1r2;
     r1->left = r1l2;
     r1->right = r1r2;
+    printf("inorder display of tree : ");
+    inorder(root);
+    printf("\n");
+    printf("preorder display of tree : ");
+    preorder(root);
+    printf("\n");
+    printf("postorder display of tree : ");
+    postorder(root);
 }
