@@ -26,7 +26,7 @@ void inorder(struct node *root)
     }
 }
 
-struct node *bst_search(struct node *root, int element)
+struct node *bst_search(struct node *root, int element) // 9
 {
     if (root == NULL || root->data == element)
     {
@@ -41,6 +41,28 @@ struct node *bst_search(struct node *root, int element)
         return bst_search(root->left, element);
     }
 }
+
+struct node *iterableSearch(struct node *root, int element) // 55
+{
+    while (root != NULL)
+    {
+        if (root->data == element)
+        {
+            return root;
+        }
+        else if (element < root->data)
+        {
+            root = root->left;
+        }
+        else
+        {
+            root = root->right;
+        }
+    }
+    return root;
+}
+
+
 
 void main()
 {
@@ -63,11 +85,13 @@ void main()
     r1->right = r1r2;
     l1l2->right = l1l2r3;
     r1l2->left = r1l2l3;
+
+
     printf("inorder display of tree : ");
     inorder(root);
 
     int element = 9;
-    if (bst_search(root, element) == NULL)
+    if (iterableSearch(root, element) == NULL)
     {
         printf("\nelement is not found");
     }
