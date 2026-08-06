@@ -26,13 +26,13 @@ void inorder(struct node *root)
     }
 }
 
-void insertion(struct node **root, int element) // 26
+void insertion(struct node **root, int element) // 50
 {
     struct node *current = *root;
     struct node *parent = NULL;
     while (current != NULL)
     {
-        parent = current;
+        parent = current; // 600
         if (current->data == element)
         {
             printf("\nelement is duplicate");
@@ -61,6 +61,11 @@ void insertion(struct node **root, int element) // 26
     {
         parent->left = createNode(element);
     }
+}
+
+void recursive_insertion(struct node *root, int element) // 50
+{
+    
 }
 
 void main()
