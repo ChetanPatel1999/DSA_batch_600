@@ -52,7 +52,8 @@ struct node *inorderSuccesor(struct node *root)
     return root;
 }
 
-struct node *delete(struct node *root, int element)
+                                 //60
+struct node *delete(struct node *root, int element)//60
 {
     if (root == NULL)
     {
@@ -73,7 +74,7 @@ struct node *delete(struct node *root, int element)
         // element found
         if (root->right == NULL)
         {
-            struct node *temp = root->left;
+            struct node *temp = root->left; // 57
             free(root);
             return temp;
         }
