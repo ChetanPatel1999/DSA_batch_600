@@ -11,7 +11,7 @@ struct Node
 };
 
 // Utility function to create a new node
-struct Node *createNode(int key)
+struct Node *createNode(int key) // 1
 {
     struct Node *node = (struct Node *)malloc(sizeof(struct Node));
     node->key = key;
@@ -70,20 +70,28 @@ int getBalance(struct Node *node)
         return 0;
     return height(node->left) - height(node->right);
 }
+
 // Insert a key into the AVL tree and balance it
-struct Node *insert(struct Node *node, int key)
+struct Node *insert(struct Node *node, int key) //
 {
     // Perform the normal BST insertion
     if (node == NULL)
+    {
         return createNode(key);
+    }
 
     if (key < node->key)
+    {
         node->left = insert(node->left, key);
+    }
     else if (key > node->key)
+    {
         node->right = insert(node->right, key);
+    }
     else // Equal keys are not allowed in BST
+    {
         return node;
-
+    }
     // Update the height of this node
     node->height = 1 + (height(node->left) > height(node->right) ? height(node->left) : height(node->right));
 
@@ -93,11 +101,15 @@ struct Node *insert(struct Node *node, int key)
     // Perform rotations to balance the tree
     // Left Left Case
     if (balance > 1 && key < node->left->key)
+    {
         return rotateRight(node);
+    }
 
     // Right Right Case
     if (balance < -1 && key > node->right->key)
+    {
         return rotateLeft(node);
+    }
 
     // Left Right Case
     if (balance > 1 && key > node->left->key)
@@ -115,6 +127,93 @@ struct Node *insert(struct Node *node, int key)
 
     return node;
 }
+
+struct Node *inorderSuccessor(struct Node *node)
+{
+    while (node->left != NULL)
+    {
+        node = node->left;
+    }
+    return node;
+}
+
+struct Node *deletion(struct Node *node, int key) //
+{
+    // Perform the normal BST insertion
+    if (node == NULL)
+    {
+        return node;
+    }
+    if (key < node->key)
+    {
+        node->left = deletion(node->left, key);
+    }
+    else if (key > node->key)
+    {
+        node->right = deletion(node->right, key);
+    }
+    else //
+    {
+        if (node->left == NULL)
+        {
+            struct Node *temp = node->right;
+            free(node);
+            return temp;
+        }
+        else if (node->right == NULL)
+        {
+            struct Node *temp = node->left;
+            free(node);
+            return temp;
+        }
+        else
+        {
+            struct Node *temp = inorderSuccessor(node->right);
+            node->key = temp->key;
+            node->right = deletion(node->right, temp->key);
+        }
+    }
+
+    if (node == NULL)
+    {
+        return node;
+    }
+    // Update the height of this node
+    node->height = 1 + (height(node->left) > height(node->right) ? height(node->left) : height(node->right));
+
+    // Get the balance factor
+    int balance = getBalance(node);
+
+    // Perform rotations to balance the tree
+    // Left Left Case
+    if (balance > 1 && getBalance(node->left) >= 0)
+    {
+        return rotateRight(node);
+    }
+
+    // Right Right Case
+    if (balance < -1 && getBalance(node->right) <= 0)
+    {
+        return rotateLeft(node);
+    }
+
+    // Left Right Case
+    if (balance > 1 && getBalance(node->left) < 0)
+    {
+        node->left = rotateLeft(node->left);
+        return rotateRight(node);
+    }
+
+    // Right Left Case
+    if (balance < -1 && getBalance(node->right) > 0)
+    {
+        node->right = rotateRight(node->right);
+        return rotateLeft(node);
+    }
+
+    return node;
+}
+
 void inOrder(struct Node *root)
 {
     if (root != NULL)
@@ -130,7 +229,7 @@ int main()
     int i;
     // Insert elements into the AVL tree
     int keys[] = {1, 2, 4, 5, 6, 3};
-    for (i = 0; i < 6; i++)
+    for (i = 0; i < 6; i++) // 2
     {
         root = insert(root, keys[i]);
     }
@@ -139,5 +238,9 @@ int main()
     printf("in-order traversal of the AVL tree:\n");
     inOrder(root);
 
+    root = deletion(root, 6);
+
+    printf("\nin-order traversal of the AVL tree:\n");
+    inOrder(root);
     return 0;
 }
