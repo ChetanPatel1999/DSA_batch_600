@@ -32,7 +32,7 @@ void prim(int g[vertices][vertices])
     }
     k[0] = 0;
     parent[0] = -1;
-    for (count = 0; count < vertices - 1; count++)// 1
+    for (count = 0; count < vertices - 1; count++) // 1
     {
 
         edge = minimum_key(k, mst); // 0
