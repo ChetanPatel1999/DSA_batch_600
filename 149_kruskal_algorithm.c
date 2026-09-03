@@ -6,16 +6,16 @@ struct Edge
 };
 int n;
 int parent[100];
-int find(int i)
+int find(int i) // 3
 {
     if (parent[i] == -1)
         return i;
     return parent[i] = find(parent[i]);
 }
-int uni(int u, int v)
+int uni(int u, int v) // u = 2 v = 3
 {
-    int rootU = find(u); // 4
-    int rootV = find(v); //
+    int rootU = find(u); // 0
+    int rootV = find(v); //0
 
     if (rootU != rootV)
     {
@@ -24,7 +24,7 @@ int uni(int u, int v)
     }
     return 0;
 }
-void kruskal(struct Edge edges[], int edgeCount)
+void kruskal(struct Edge edges[], int edgeCount) // 7
 {
     int i, ne = 0, mincost = 0;
 
@@ -36,13 +36,15 @@ void kruskal(struct Edge edges[], int edgeCount)
 
     printf("The edges of Minimum Cost Spanning Tree are:\n");
 
-    for (i = 0; i < edgeCount && ne < n - 1; i++)
+    for (i = 0; i < edgeCount && ne < n - 1; i++) // 4
     {
-        if (uni(edges[i].u, edges[i].v))
+        if (uni(edges[i].u, edges[i].v)) // 0,4
         {
-            printf("%d edge (%d,%d) = %d\n", ++ne, edges[i].u, edges[i].v,
+            ne++;//4
+            printf("%d edge (%d,%d) = %d\n", ne, edges[i].u, edges[i].v,
                    edges[i].weight);
-            mincost += edges[i].weight;
+            // 1 edge(0,1) = 1
+            mincost = mincost + edges[i].weight;
         }
     }
 
@@ -105,5 +107,6 @@ void main()
                edges[i].weight);
     }
     printf("\n");
+
     kruskal(edges, edgeCount);
 }
